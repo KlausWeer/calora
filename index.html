@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="calora-store.js"></script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
@@ -99,7 +100,7 @@
 
       <!-- RIGHT: image with editorial overlays -->
       <div style="position:relative; min-height:74vh; overflow:hidden; background:#121110;">
-        <image-slot id="web-hero" style="position:absolute; inset:0; width:100%; height:100%; display:block; filter:grayscale(1) contrast(1.04);" shape="rect" placeholder="Drop a b&amp;w campaign image"></image-slot>
+        <div style="position:absolute; inset:0; width:100%; height:100%;">{{ home.hero }}</div>
         <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,7,6,0.34) 0%, rgba(8,7,6,0) 34%, rgba(8,7,6,0) 60%, rgba(8,7,6,0.46) 100%); pointer-events:none;"></div>
         <div style="position:absolute; top:22px; left:22px; right:22px; display:flex; justify-content:space-between; align-items:flex-start; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase;">
           <span>Pict &mdash; The Atelier, Galle</span>
@@ -107,8 +108,8 @@
         </div>
         <!-- floating framed inset -->
         <div class="cl-floatframe cl-tile" style="position:absolute; right:22px; bottom:64px; width:128px; background:#E5E4DF; padding:7px 7px 9px; box-shadow:0 18px 40px -16px rgba(8,7,6,0.6);">
-          <div style="overflow:hidden; aspect-ratio:3/4; background:#cdccc6;">
-            <image-slot id="web-hero-inset" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="detail"></image-slot>
+          <div style="overflow:hidden; aspect-ratio:3/4; background:#cdccc6; position:relative;">
+            {{ home.heroInset }}
           </div>
           <div style="display:flex; justify-content:space-between; font-family:'Archivo',sans-serif; font-weight:600; font-size:7px; letter-spacing:0.16em; text-transform:uppercase; margin-top:6px;"><span>Collection</span><span>Live</span></div>
         </div>
@@ -140,40 +141,20 @@
       </div>
       <a href="shop.html" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">View All &rarr;</a>
     </div>
-    <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#121110; border:1px solid #121110;">
-      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
-        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
-          <image-slot id="prod-1" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Ring"></image-slot>
-          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A1</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Aria Band</span><span>$58</span></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">925 Silver</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
-      </a>
-      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
-        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
-          <image-slot id="prod-2" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Earrings"></image-slot>
-          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A2</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Selva Hoops</span><span>$74</span></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">925 Silver</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
-      </a>
-      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
-        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
-          <image-slot id="prod-3" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Necklace"></image-slot>
-          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A3</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Janet Pendant</span><span>$96</span></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">Vermeil</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
-      </a>
-      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
-        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
-          <image-slot id="prod-4" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Ring"></image-slot>
-          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A4</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Onyx Signet</span><span>$112</span></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">Stone-set</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
-      </a>
-    </div>
+    <sc-if value="{{ bestSellers.length > 0 }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#121110; border:1px solid #121110;">
+        <sc-for list="{{ bestSellers }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
+            <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
+              {{ item.thumb }}
+              <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">{{ item.badge }}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>{{ item.name }}</span><span>{{ item.priceLabel }}</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">{{ item.material }}</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
   </section>
 
   <!-- CATEGORIES (inverted editorial block) -->
@@ -194,7 +175,7 @@
         </div>
       </div>
       <div class="cl-tile" style="position:relative; overflow:hidden; min-height:560px; border-left:1px solid rgba(229,228,223,0.18);">
-        <image-slot id="web-cat" style="width:100%; height:100%; min-height:560px; display:block; filter:grayscale(1) contrast(1.05);" shape="rect" placeholder="Drop an editorial on-body b&amp;w image"></image-slot>
+        <div style="position:absolute; inset:0;">{{ home.category }}</div>
         <div style="position:absolute; top:22px; left:22px; right:22px; display:flex; justify-content:space-between; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;"><span>Worn &mdash; Everyday</span><span>For Her / Him</span></div>
         <div style="position:absolute; bottom:22px; left:22px; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#E5E4DF;">FIG. 02 &mdash; The Series</div>
       </div>
@@ -216,7 +197,7 @@
   <section id="history" style="max-width:1440px; margin:0 auto; padding:88px 34px; border-bottom:1px solid #121110;">
     <div class="cl-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
       <div class="cl-tile" style="position:relative; overflow:hidden; background:#DBDAD4;">
-        <image-slot id="web-history" style="width:100%; aspect-ratio:4/5; display:block; filter:grayscale(1);" shape="rect" placeholder="Drop a workshop / hands-at-bench b&amp;w image"></image-slot>
+        {{ home.history }}
         <div style="position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;"><span>The Bench</span><span>Est. 2001</span></div>
       </div>
       <div>
@@ -239,10 +220,10 @@
       <a href="https://www.instagram.com/calora.jewelry/" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">Follow Instagram &rarr;</a>
     </div>
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#121110; border-top:1px solid #121110; border-bottom:1px solid #121110;">
-      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig1" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
-      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig2" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
-      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig3" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
-      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig4" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4; position:relative;">{{ home.ig1 }}</div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4; position:relative;">{{ home.ig2 }}</div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4; position:relative;">{{ home.ig3 }}</div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4; position:relative;">{{ home.ig4 }}</div>
     </div>
   </section>
 
@@ -303,6 +284,76 @@
 
 </div>
 </x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { products: null, homeData: null };
+
+  componentDidMount() {
+    this._read();
+    this._sync = () => this._read();
+    window.addEventListener('storage', this._sync);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('storage', this._sync);
+    if (this._t) clearTimeout(this._t);
+  }
+
+  _read() {
+    var S = window.CaloraStore;
+    if (!S) { this._t = setTimeout(() => this._read(), 60); return; }
+    var self = this;
+    
+    var fetchHome = fetch('data/home.json', { cache: 'no-store' })
+      .then(function(r) { return r.ok ? r.json() : {}; })
+      .catch(function() { return {}; });
+
+    Promise.all([S.resolveCatalogue(), fetchHome]).then(function (results) {
+      self.setState({ products: results[0], homeData: results[1] });
+    });
+  }
+
+  _makeImg(url, placeholderText, styles) {
+    if (url) {
+      return React.createElement('img', { src: url, alt: '', style: Object.assign({ width:'100%', height:'100%', objectFit:'cover', display:'block', position:'absolute', inset:0 }, styles) });
+    } else {
+      return React.createElement('div', { className:'cl-ph', style: Object.assign({ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Archivo',sans-serif", fontWeight:600, fontSize:'11px', letterSpacing:'0.22em', textTransform:'uppercase', color:'#8c887f', textAlign:'center', padding:'20px', background:'rgba(0,0,0,0.05)' }, styles) }, placeholderText);
+    }
+  }
+
+  renderVals() {
+    var S = window.CaloraStore;
+    var all = (this.state.products || []).filter(function (p) { return p.status !== 'draft'; });
+    var home = this.state.homeData || {};
+
+    var bestSellersList = all.filter(function(p) { return p.featured; }).slice(0, 4);
+    if (bestSellersList.length === 0) bestSellersList = all.slice(0, 4);
+
+    var bestSellers = bestSellersList.map(function(p, i) {
+      return Object.assign({}, p, {
+        priceLabel: '$' + p.price,
+        badge: 'A' + (i + 1),
+        thumb: p.image
+          ? React.createElement('img', { src: p.image, alt: p.name, style: { width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'grayscale(1)', position:'absolute', inset:0 } })
+          : React.createElement('div', { className:'cl-ph', style: { position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Archivo',sans-serif", fontWeight:600, fontSize:'11px', letterSpacing:'0.22em', textTransform:'uppercase', color:'#bdb9af' } }, p.category)
+      });
+    });
+
+    return {
+      bestSellers: bestSellers,
+      home: {
+        hero: this._makeImg(home.hero_image, 'Hero Image (Set in CMS)', { filter:'grayscale(1) contrast(1.04)' }),
+        heroInset: this._makeImg(home.hero_inset_image, 'Detail (CMS)', { filter:'grayscale(1)' }),
+        category: this._makeImg(home.category_image, 'Category Image (CMS)', { filter:'grayscale(1) contrast(1.05)', minHeight:'560px' }),
+        history: this._makeImg(home.history_image, 'History Image (CMS)', { filter:'grayscale(1)', aspectRatio:'4/5' }),
+        ig1: this._makeImg(home.ig_image_1, 'IG 1', { filter:'grayscale(1)' }),
+        ig2: this._makeImg(home.ig_image_2, 'IG 2', { filter:'grayscale(1)' }),
+        ig3: this._makeImg(home.ig_image_3, 'IG 3', { filter:'grayscale(1)' }),
+        ig4: this._makeImg(home.ig_image_4, 'IG 4', { filter:'grayscale(1)' })
+      }
+    };
+  }
+}
+</script>
 <script>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", user => {

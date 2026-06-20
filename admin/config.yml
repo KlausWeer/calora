@@ -48,3 +48,20 @@ collections:
                 options: ["active", "draft"]
                 default: "active"
               - { label: "ID", name: "id", widget: "hidden", required: false }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "home"
+        label: "Homepage Settings"
+        file: "data/home.json"
+        description: "Update the images shown on the homepage."
+        fields:
+          - { label: "Hero Image", name: "hero_image", widget: "image", required: false, choose_url: false }
+          - { label: "Hero Inset Image", name: "hero_inset_image", widget: "image", required: false, choose_url: false }
+          - { label: "Category Section Image", name: "category_image", widget: "image", required: false, choose_url: false }
+          - { label: "History Section Image", name: "history_image", widget: "image", required: false, choose_url: false }
+          - { label: "Instagram Image 1", name: "ig_image_1", widget: "image", required: false, choose_url: false }
+          - { label: "Instagram Image 2", name: "ig_image_2", widget: "image", required: false, choose_url: false }
+          - { label: "Instagram Image 3", name: "ig_image_3", widget: "image", required: false, choose_url: false }
+          - { label: "Instagram Image 4", name: "ig_image_4", widget: "image", required: false, choose_url: false }
