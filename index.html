@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #E5E4DF; -webkit-font-smoothing: antialiased; }
+  ::selection { background: #121110; color: #E5E4DF; }
+  a { text-decoration: none; color: inherit; }
+  .cl-navlink { position: relative; }
+  .cl-navlink::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:currentColor; transition:width .35s cubic-bezier(.2,.7,.2,1); }
+  .cl-navlink:hover::after { width:100%; }
+  .cl-link { transition:opacity .25s ease, letter-spacing .25s ease; }
+  .cl-link:hover { opacity:.55; letter-spacing:0.26em; }
+  .cl-tile image-slot { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .cl-tile:hover image-slot { transform: scale(1.05); }
+  .cl-catword { transition: padding-left .35s cubic-bezier(.2,.7,.2,1), opacity .3s ease; opacity:.85; }
+  .cl-catword:hover { padding-left:18px; opacity:1; }
+  .bc { background-image:repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 3px, currentColor 3px 4px, transparent 4px 7px, currentColor 7px 9px, transparent 9px 11px, currentColor 11px 12px, transparent 12px 14px); }
+  @media (max-width:920px){
+    .cl-2col { grid-template-columns:1fr !important; }
+    .cl-products { grid-template-columns:repeat(2,1fr) !important; }
+    .cl-foot { grid-template-columns:1fr 1fr !important; }
+    .cl-nav-side { display:none !important; }
+    .cl-hero-grid { grid-template-columns:1fr !important; }
+    .cl-hero-mark { font-size:21vw !important; }
+    .cl-cat-grid { grid-template-columns:1fr !important; }
+    .cl-floatframe { display:none !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:#E5E4DF; color:#121110; font-family:'Archivo',sans-serif;">
+
+  <!-- MASTHEAD UTILITY STRIP -->
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; padding:9px 24px; border-bottom:1px solid #121110; font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.24em; text-transform:uppercase; flex-wrap:wrap;">
+    <span>Calora&trade; &mdash; The Silver Atelier</span>
+    <span style="opacity:0.55;">Issue 01 &middot; Spring MMXXVI</span>
+    <span>Galle &middot; 06&deg;02&prime;N</span>
+  </div>
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:60; background:rgba(229,228,223,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #121110;">
+    <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:15px 24px;">
+      <nav class="cl-nav-side" style="display:flex; gap:26px; font-family:'Archivo',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;">
+        <a href="shop.html" class="cl-navlink">Shop<sup style="font-size:7px; letter-spacing:0; margin-left:2px; opacity:.5;">01</sup></a>
+        <a href="shop.html" class="cl-navlink">Collections<sup style="font-size:7px; letter-spacing:0; margin-left:2px; opacity:.5;">02</sup></a>
+        <a href="#history" class="cl-navlink">About<sup style="font-size:7px; letter-spacing:0; margin-left:2px; opacity:.5;">03</sup></a>
+      </nav>
+      <a href="#top" style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.36em; padding-left:0.36em; text-align:center;">CALORA</a>
+      <nav class="cl-nav-side" style="display:flex; gap:26px; justify-content:flex-end; font-family:'Archivo',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;">
+        <a href="#" class="cl-navlink">Search</a>
+        <a href="#" class="cl-navlink">Account</a>
+        <a href="#" class="cl-navlink">Cart&nbsp;(0)</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="border-bottom:1px solid #121110;">
+    <div class="cl-hero-grid" style="display:grid; grid-template-columns:1.05fr 0.95fr;">
+
+      <!-- LEFT: editorial type -->
+      <div style="position:relative; padding:44px 34px 30px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid #121110; min-height:74vh;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px;">
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; line-height:1.7; max-width:230px;">
+            Timeless elegance<br>for every style &mdash;<br>handmade in silver
+          </div>
+          <div style="text-align:right; font-family:'Archivo',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;">
+            <div style="font-size:30px; font-weight:800; letter-spacing:-0.02em; line-height:0.9;">22</div>
+            <div style="opacity:0.55; margin-top:4px;">February</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#6f6a60; margin-bottom:14px;">Revolutionary craft for a bold new era</div>
+          <h1 class="cl-hero-mark" style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(52px,9vw,128px); line-height:0.82; margin:0; letter-spacing:-0.045em; text-transform:uppercase;">In&nbsp;silver,<br>the&nbsp;hand<br>stays&nbsp;free<span style="color:#6f6a60;">.</span></h1>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px;">
+          <a href="shop.html" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">Explore the Collection &darr;</a>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+            <div class="bc" style="width:104px; height:30px; color:#121110;"></div>
+            <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.22em; text-transform:uppercase; opacity:0.5;">CLR&middot;0001&middot;925</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: image with editorial overlays -->
+      <div style="position:relative; min-height:74vh; overflow:hidden; background:#121110;">
+        <image-slot id="web-hero" style="position:absolute; inset:0; width:100%; height:100%; display:block; filter:grayscale(1) contrast(1.04);" shape="rect" placeholder="Drop a b&amp;w campaign image"></image-slot>
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,7,6,0.34) 0%, rgba(8,7,6,0) 34%, rgba(8,7,6,0) 60%, rgba(8,7,6,0.46) 100%); pointer-events:none;"></div>
+        <div style="position:absolute; top:22px; left:22px; right:22px; display:flex; justify-content:space-between; align-items:flex-start; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase;">
+          <span>Pict &mdash; The Atelier, Galle</span>
+          <span style="font-size:18px; letter-spacing:0.18em; line-height:1;">&bull;&bull;&bull;</span>
+        </div>
+        <!-- floating framed inset -->
+        <div class="cl-floatframe cl-tile" style="position:absolute; right:22px; bottom:64px; width:128px; background:#E5E4DF; padding:7px 7px 9px; box-shadow:0 18px 40px -16px rgba(8,7,6,0.6);">
+          <div style="overflow:hidden; aspect-ratio:3/4; background:#cdccc6;">
+            <image-slot id="web-hero-inset" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="detail"></image-slot>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:'Archivo',sans-serif; font-weight:600; font-size:7px; letter-spacing:0.16em; text-transform:uppercase; margin-top:6px;"><span>Collection</span><span>Live</span></div>
+        </div>
+        <div style="position:absolute; left:22px; bottom:24px; right:160px; color:#E5E4DF;">
+          <p style="font-family:'Archivo',sans-serif; font-style:italic; font-weight:400; font-size:13px; line-height:1.5; margin:0; max-width:330px;">&ldquo;Air yang sabar mengalir &mdash; the patient silver, shaped slow, made to outlast the season.&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <section style="border-bottom:1px solid #121110;">
+    <div class="cl-2col" style="max-width:1440px; margin:0 auto; padding:48px 34px; display:grid; grid-template-columns:0.5fr 1.1fr 1fr; gap:40px; align-items:start;">
+      <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#6f6a60;">From within &mdash;<br>the workshop note</div>
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(20px,2.3vw,30px); line-height:1.16; margin:0; letter-spacing:-0.02em; text-transform:uppercase;">European-grade handmade silver, made in Galle &mdash; finally under our own name.</h2>
+      <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:13.5px; line-height:1.74; color:#3a3833; margin:0;">For twenty-five years our workshop crafted fine silver for a single European house. That craft is now yours to wear &mdash; demi-fine pieces, made by hand, priced fairly, and built to last a lifetime.</p>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section id="shop" style="max-width:1440px; margin:0 auto; padding:76px 34px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:30px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:flex-end; gap:20px;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid #121110; border-radius:50%; font-family:'Archivo',sans-serif; font-weight:700; font-size:14px;">01</span>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#6f6a60; margin-bottom:10px;">Best Sellers</div>
+          <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(32px,4.8vw,64px); line-height:0.86; margin:0; letter-spacing:-0.04em; text-transform:uppercase;">The Essentials</h2>
+        </div>
+      </div>
+      <a href="shop.html" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">View All &rarr;</a>
+    </div>
+    <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#121110; border:1px solid #121110;">
+      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
+        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
+          <image-slot id="prod-1" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Ring"></image-slot>
+          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A1</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Aria Band</span><span>$58</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">925 Silver</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
+      </a>
+      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
+        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
+          <image-slot id="prod-2" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Earrings"></image-slot>
+          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A2</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Selva Hoops</span><span>$74</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">925 Silver</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
+      </a>
+      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
+        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
+          <image-slot id="prod-3" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Necklace"></image-slot>
+          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A3</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Janet Pendant</span><span>$96</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">Vermeil</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
+      </a>
+      <a href="product.html" class="cl-tile" style="display:block; background:#E5E4DF; padding:16px 16px 18px;">
+        <div style="background:#DBDAD4; aspect-ratio:4/5; overflow:hidden; position:relative;">
+          <image-slot id="prod-4" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder="Ring"></image-slot>
+          <span style="position:absolute; top:9px; left:9px; font-family:'Archivo',sans-serif; font-weight:600; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; background:#121110; color:#E5E4DF; padding:3px 6px;">A4</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;"><span>Onyx Signet</span><span>$112</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-family:'Archivo',sans-serif; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;">Stone-set</span><span class="bc" style="width:52px; height:13px; color:#9a958b;"></span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CATEGORIES (inverted editorial block) -->
+  <section id="categories" style="background:#121110; color:#E5E4DF; border-top:1px solid #121110;">
+    <div class="cl-cat-grid" style="display:grid; grid-template-columns:1.1fr 0.9fr; max-width:1440px; margin:0 auto;">
+      <div style="padding:72px 34px;">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:34px;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border:1px solid rgba(229,228,223,0.4); border-radius:50%; font-family:'Archivo',sans-serif; font-weight:700; font-size:13px;">02</span>
+          <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#8f8a7f;">A series for the everyday</span>
+        </div>
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(30px,4.4vw,58px); line-height:0.9; margin:0 0 38px; letter-spacing:-0.035em; text-transform:uppercase;">Shop by<br>category <span style="font-weight:400;">&darr;</span></h2>
+        <div style="display:flex; flex-direction:column;">
+          <a href="shop.html#rings" class="cl-catword" style="display:flex; align-items:baseline; gap:16px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3vw,40px); letter-spacing:-0.02em; text-transform:uppercase; padding:14px 0; border-bottom:1px solid rgba(229,228,223,0.18);"><span style="font-size:11px; font-weight:600; letter-spacing:0.12em; opacity:0.5;">01</span>Rings</a>
+          <a href="shop.html#earrings" class="cl-catword" style="display:flex; align-items:baseline; gap:16px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3vw,40px); letter-spacing:-0.02em; text-transform:uppercase; padding:14px 0; border-bottom:1px solid rgba(229,228,223,0.18);"><span style="font-size:11px; font-weight:600; letter-spacing:0.12em; opacity:0.5;">02</span>Earrings</a>
+          <a href="shop.html#necklaces" class="cl-catword" style="display:flex; align-items:baseline; gap:16px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3vw,40px); letter-spacing:-0.02em; text-transform:uppercase; padding:14px 0; border-bottom:1px solid rgba(229,228,223,0.18);"><span style="font-size:11px; font-weight:600; letter-spacing:0.12em; opacity:0.5;">03</span>Necklaces</a>
+          <a href="shop.html#bracelets" class="cl-catword" style="display:flex; align-items:baseline; gap:16px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3vw,40px); letter-spacing:-0.02em; text-transform:uppercase; padding:14px 0; border-bottom:1px solid rgba(229,228,223,0.18);"><span style="font-size:11px; font-weight:600; letter-spacing:0.12em; opacity:0.5;">04</span>Bracelets</a>
+          <a href="shop.html#pendants" class="cl-catword" style="display:flex; align-items:baseline; gap:16px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3vw,40px); letter-spacing:-0.02em; text-transform:uppercase; padding:14px 0;"><span style="font-size:11px; font-weight:600; letter-spacing:0.12em; opacity:0.5;">05</span>Pendants</a>
+        </div>
+      </div>
+      <div class="cl-tile" style="position:relative; overflow:hidden; min-height:560px; border-left:1px solid rgba(229,228,223,0.18);">
+        <image-slot id="web-cat" style="width:100%; height:100%; min-height:560px; display:block; filter:grayscale(1) contrast(1.05);" shape="rect" placeholder="Drop an editorial on-body b&amp;w image"></image-slot>
+        <div style="position:absolute; top:22px; left:22px; right:22px; display:flex; justify-content:space-between; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;"><span>Worn &mdash; Everyday</span><span>For Her / Him</span></div>
+        <div style="position:absolute; bottom:22px; left:22px; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#E5E4DF;">FIG. 02 &mdash; The Series</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section style="border-bottom:1px solid #121110;">
+    <div class="cl-2col" style="max-width:1440px; margin:0 auto; padding:96px 34px; display:grid; grid-template-columns:0.4fr 1fr; gap:48px;">
+      <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#6f6a60;">03 &mdash; Philosophy<br><span style="opacity:0.55;">08.55&thinsp;AM &middot; Friday</span></div>
+      <div>
+        <p style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,3.4vw,46px); line-height:1.14; margin:0 0 34px; letter-spacing:-0.025em; text-transform:uppercase;">We never needed to shout. Twenty-five years at the bench taught us that good silver speaks for itself.</p>
+        <a href="#history" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">Read Our Story &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="history" style="max-width:1440px; margin:0 auto; padding:88px 34px; border-bottom:1px solid #121110;">
+    <div class="cl-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+      <div class="cl-tile" style="position:relative; overflow:hidden; background:#DBDAD4;">
+        <image-slot id="web-history" style="width:100%; aspect-ratio:4/5; display:block; filter:grayscale(1);" shape="rect" placeholder="Drop a workshop / hands-at-bench b&amp;w image"></image-slot>
+        <div style="position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;"><span>The Bench</span><span>Est. 2001</span></div>
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border:1px solid #121110; border-radius:50%; font-family:'Archivo',sans-serif; font-weight:700; font-size:13px;">04</span>
+          <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#6f6a60;">The History</span>
+        </div>
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(30px,4.6vw,58px); line-height:0.9; margin:0 0 28px; letter-spacing:-0.04em; text-transform:uppercase;">Twenty-five years<br>in the making <span style="font-weight:400;">&searr;</span></h2>
+        <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:14px; line-height:1.78; color:#3a3833; margin:0 0 18px; max-width:480px;">Our workshop in Galle spent a quarter of a century making fine silver for a single European house &mdash; every piece bound for a name that wasn't ours. When that door closed, what remained was the craft itself.</p>
+        <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:14px; line-height:1.78; color:#3a3833; margin:0 0 30px; max-width:480px;">Calora is that craft, finally under its own name &mdash; and finally, yours to wear.</p>
+        <a href="#" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">More About Calora &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section style="border-bottom:1px solid #121110;">
+    <div style="max-width:1440px; margin:0 auto; padding:64px 34px 30px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,46px); margin:0; letter-spacing:-0.035em; text-transform:uppercase;">Instastory by<br>@calora.jewelry</h2>
+      <a href="https://www.instagram.com/calora.jewelry/" class="cl-link" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">Follow Instagram &rarr;</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#121110; border-top:1px solid #121110; border-bottom:1px solid #121110;">
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig1" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig2" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig3" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
+      <div class="cl-tile" style="overflow:hidden; aspect-ratio:1; background:#DBDAD4;"><image-slot id="web-ig4" style="width:100%; height:100%; display:block; filter:grayscale(1);" shape="rect" placeholder=""></image-slot></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER + FOOTER -->
+  <footer style="background:#121110; color:#E5E4DF;">
+    <div style="max-width:1440px; margin:0 auto; padding:80px 34px 40px;">
+
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:54px;">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(48px,11vw,150px); line-height:0.82; margin:0; letter-spacing:-0.05em; text-transform:uppercase;">Details.</h2>
+        <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:40px; line-height:1;">&searr;</span>
+      </div>
+
+      <div class="cl-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; padding-bottom:60px; border-bottom:1px solid rgba(229,228,223,0.18);">
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">Join the List</div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.8vw,38px); line-height:1.08; margin:0; letter-spacing:-0.02em; text-transform:uppercase;">New pieces, slow stories, first access</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; justify-content:flex-end;">
+          <div style="display:flex; border-bottom:1px solid rgba(229,228,223,0.4); padding-bottom:13px; gap:16px;">
+            <input type="email" placeholder="Email address" style="flex:1; background:transparent; border:none; outline:none; color:#E5E4DF; font-family:'Archivo',sans-serif; font-size:14px; letter-spacing:0.02em;">
+            <button style="background:transparent; border:none; cursor:pointer; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;">Subscribe &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cl-foot" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding:56px 0;">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:26px; letter-spacing:0.3em; padding-left:0.3em; margin-bottom:16px;">CALORA</div>
+          <p style="font-family:'Archivo',sans-serif; font-size:13px; line-height:1.7; color:#9a9488; max-width:300px; margin:0 0 22px;">Fine handmade silver. Designed and made in Galle, Sri Lanka.</p>
+          <div class="bc" style="width:150px; height:34px; color:#6e6960;"></div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">Info</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="#" class="cl-navlink">Product Care</a><a href="#" class="cl-navlink">Shipping</a><a href="#" class="cl-navlink">Returns</a><a href="#" class="cl-navlink">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">About</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="#history" class="cl-navlink">Our Story</a><a href="#" class="cl-navlink">The Atelier</a><a href="#" class="cl-navlink">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">Customers</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="#" class="cl-navlink">My Account</a><a href="#" class="cl-navlink">Track Order</a><a href="https://www.instagram.com/calora.jewelry/" class="cl-navlink">Instagram</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#7d786e;">
+        <span>&copy; MMXXVI Calora&trade; &mdash; Galle, Sri Lanka</span>
+        <span style="display:flex; align-items:center; gap:8px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border:1px solid #7d786e; border-radius:50%; font-size:8px;">R</span>Made by hand. Made to keep.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>

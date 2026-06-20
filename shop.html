@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="calora-store.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F2F1ED; -webkit-font-smoothing: antialiased; }
+  ::selection { background: #121110; color: #F2F1ED; }
+  a { text-decoration: none; color: inherit; }
+  .cl-navlink { position: relative; }
+  .cl-navlink::after { content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:currentColor; transition:width .3s ease; }
+  .cl-navlink:hover::after { width:100%; }
+  .cl-link { border-bottom:1px solid currentColor; padding-bottom:2px; transition:opacity .25s ease; }
+  .cl-link:hover { opacity:.55; }
+  .cl-tile img, .cl-tile .cl-ph { transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+  .cl-tile:hover img, .cl-tile:hover .cl-ph { transform: scale(1.04); }
+  .cl-cat { transition: opacity .2s ease; }
+  .cl-cat:hover { opacity:.5; }
+  @media (max-width:900px){
+    .cl-products { grid-template-columns:repeat(2,1fr) !important; }
+    .cl-foot { grid-template-columns:1fr 1fr !important; }
+    .cl-nav-side { display:none !important; }
+    .cl-cathead { font-size:54px !important; }
+    .cl-catbar { gap:18px !important; flex-wrap:wrap !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:#F2F1ED; color:#121110; font-family:'Archivo',sans-serif;">
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:60; background:rgba(242,241,237,0.9); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(18,17,16,0.12);">
+    <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:18px 34px;">
+      <nav class="cl-nav-side" style="display:flex; gap:30px; font-family:'Archivo',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">
+        <a href="index.html" class="cl-navlink">Home</a>
+        <a href="#catalogue" class="cl-navlink">Collections</a>
+        <a href="index.html#history" class="cl-navlink">About</a>
+      </nav>
+      <a href="index.html" style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:20px; letter-spacing:0.34em; padding-left:0.34em; text-align:center;">CALORA</a>
+      <nav class="cl-nav-side" style="display:flex; gap:30px; justify-content:flex-end; font-family:'Archivo',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">
+        <a href="#" class="cl-navlink">Search</a>
+        <a href="#" class="cl-navlink">Account</a>
+        <a href="#" class="cl-navlink">Cart (0)</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section style="max-width:1500px; margin:0 auto; padding:56px 34px 40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:30px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:500; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8c887f; margin-bottom:18px;">The Catalogue &mdash; Spring 2026</div>
+        <h1 class="cl-cathead" style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(54px,11vw,150px); line-height:0.86; margin:0; letter-spacing:-0.04em; text-transform:uppercase;">Shop<br>All</h1>
+      </div>
+      <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:14px; line-height:1.72; color:#3a3833; max-width:340px; margin-top:8px;">Every piece is handmade in our Galle workshop from solid 925 sterling silver. Limited stock &mdash; what you see is what remains.</p>
+    </div>
+  </section>
+
+  <!-- CATEGORY BAR (sticky) -->
+  <div id="catalogue" style="position:sticky; top:55px; z-index:50; background:rgba(242,241,237,0.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid rgba(18,17,16,0.12); border-bottom:1px solid rgba(18,17,16,0.12);">
+    <div class="cl-catbar" style="max-width:1500px; margin:0 auto; padding:16px 34px; display:flex; align-items:center; gap:30px; font-family:'Archivo',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.14em; text-transform:uppercase;">
+      <a href="#rings" class="cl-cat">Rings</a>
+      <a href="#earrings" class="cl-cat">Earrings</a>
+      <a href="#necklaces" class="cl-cat">Necklaces</a>
+      <a href="#bracelets" class="cl-cat">Bracelets</a>
+      <a href="#pendants" class="cl-cat">Pendants</a>
+      <span style="margin-left:auto; font-weight:400; font-size:11px; letter-spacing:0.16em; color:#8c887f;">{{ totalLabel }}</span>
+    </div>
+  </div>
+
+  <!-- RINGS -->
+  <section id="rings" style="scroll-margin-top:110px; max-width:1500px; margin:0 auto; padding:80px 34px 40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:20px; border-bottom:1px solid rgba(18,17,16,0.12); padding-bottom:22px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(30px,4.4vw,58px); line-height:0.92; margin:0; letter-spacing:-0.03em; text-transform:uppercase;"><span style="font-size:0.34em; font-weight:500; color:#8c887f; vertical-align:super; letter-spacing:0.1em;">01</span> Rings</h2>
+      <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#8c887f;">{{ g.rings.countLabel }}</span>
+    </div>
+    <sc-if value="{{ g.rings.hasItems }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ g.rings.items }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block;">
+            <div style="background:#E9E7E2; aspect-ratio:4/5; overflow:hidden; position:relative;">{{ item.thumb }}</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:15px; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;"><span>{{ item.name }}</span><span style="font-weight:600;">{{ item.priceLabel }}</span></div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f; margin-top:5px;">{{ item.material }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ g.rings.empty }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:0.04em; color:#a7a299; padding:10px 0 30px;">New pieces coming soon.</div></sc-if>
+  </section>
+
+  <!-- EARRINGS -->
+  <section id="earrings" style="scroll-margin-top:110px; max-width:1500px; margin:0 auto; padding:48px 34px 40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:20px; border-bottom:1px solid rgba(18,17,16,0.12); padding-bottom:22px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(30px,4.4vw,58px); line-height:0.92; margin:0; letter-spacing:-0.03em; text-transform:uppercase;"><span style="font-size:0.34em; font-weight:500; color:#8c887f; vertical-align:super; letter-spacing:0.1em;">02</span> Earrings</h2>
+      <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#8c887f;">{{ g.earrings.countLabel }}</span>
+    </div>
+    <sc-if value="{{ g.earrings.hasItems }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ g.earrings.items }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block;">
+            <div style="background:#E9E7E2; aspect-ratio:4/5; overflow:hidden; position:relative;">{{ item.thumb }}</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:15px; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;"><span>{{ item.name }}</span><span style="font-weight:600;">{{ item.priceLabel }}</span></div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f; margin-top:5px;">{{ item.material }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ g.earrings.empty }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:0.04em; color:#a7a299; padding:10px 0 30px;">New pieces coming soon.</div></sc-if>
+  </section>
+
+  <!-- NECKLACES -->
+  <section id="necklaces" style="scroll-margin-top:110px; max-width:1500px; margin:0 auto; padding:48px 34px 40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:20px; border-bottom:1px solid rgba(18,17,16,0.12); padding-bottom:22px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(30px,4.4vw,58px); line-height:0.92; margin:0; letter-spacing:-0.03em; text-transform:uppercase;"><span style="font-size:0.34em; font-weight:500; color:#8c887f; vertical-align:super; letter-spacing:0.1em;">03</span> Necklaces</h2>
+      <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#8c887f;">{{ g.necklaces.countLabel }}</span>
+    </div>
+    <sc-if value="{{ g.necklaces.hasItems }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ g.necklaces.items }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block;">
+            <div style="background:#E9E7E2; aspect-ratio:4/5; overflow:hidden; position:relative;">{{ item.thumb }}</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:15px; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;"><span>{{ item.name }}</span><span style="font-weight:600;">{{ item.priceLabel }}</span></div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f; margin-top:5px;">{{ item.material }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ g.necklaces.empty }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:0.04em; color:#a7a299; padding:10px 0 30px;">New pieces coming soon.</div></sc-if>
+  </section>
+
+  <!-- BRACELETS -->
+  <section id="bracelets" style="scroll-margin-top:110px; max-width:1500px; margin:0 auto; padding:48px 34px 40px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:20px; border-bottom:1px solid rgba(18,17,16,0.12); padding-bottom:22px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(30px,4.4vw,58px); line-height:0.92; margin:0; letter-spacing:-0.03em; text-transform:uppercase;"><span style="font-size:0.34em; font-weight:500; color:#8c887f; vertical-align:super; letter-spacing:0.1em;">04</span> Bracelets</h2>
+      <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#8c887f;">{{ g.bracelets.countLabel }}</span>
+    </div>
+    <sc-if value="{{ g.bracelets.hasItems }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ g.bracelets.items }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block;">
+            <div style="background:#E9E7E2; aspect-ratio:4/5; overflow:hidden; position:relative;">{{ item.thumb }}</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:15px; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;"><span>{{ item.name }}</span><span style="font-weight:600;">{{ item.priceLabel }}</span></div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f; margin-top:5px;">{{ item.material }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ g.bracelets.empty }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:0.04em; color:#a7a299; padding:10px 0 30px;">New pieces coming soon.</div></sc-if>
+  </section>
+
+  <!-- PENDANTS -->
+  <section id="pendants" style="scroll-margin-top:110px; max-width:1500px; margin:0 auto; padding:48px 34px 90px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:20px; border-bottom:1px solid rgba(18,17,16,0.12); padding-bottom:22px;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(30px,4.4vw,58px); line-height:0.92; margin:0; letter-spacing:-0.03em; text-transform:uppercase;"><span style="font-size:0.34em; font-weight:500; color:#8c887f; vertical-align:super; letter-spacing:0.1em;">05</span> Pendants</h2>
+      <span style="font-family:'Archivo',sans-serif; font-weight:400; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#8c887f;">{{ g.pendants.countLabel }}</span>
+    </div>
+    <sc-if value="{{ g.pendants.hasItems }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-products" style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ g.pendants.items }}" as="item" hint-placeholder-count="4">
+          <a href="product.html" class="cl-tile" style="display:block;">
+            <div style="background:#E9E7E2; aspect-ratio:4/5; overflow:hidden; position:relative;">{{ item.thumb }}</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:15px; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;"><span>{{ item.name }}</span><span style="font-weight:600;">{{ item.priceLabel }}</span></div>
+            <div style="font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f; margin-top:5px;">{{ item.material }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ g.pendants.empty }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Archivo',sans-serif; font-size:13px; letter-spacing:0.04em; color:#a7a299; padding:10px 0 30px;">New pieces coming soon.</div></sc-if>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#121110; color:#EDEBE5;">
+    <div style="max-width:1500px; margin:0 auto; padding:90px 34px 44px;">
+      <div class="cl-foot" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:60px; border-bottom:1px solid rgba(237,235,229,0.18);">
+        <div>
+          <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:28px; letter-spacing:0.28em; padding-left:0.28em; margin-bottom:16px;">CALORA</div>
+          <p style="font-family:'Archivo',sans-serif; font-size:13px; line-height:1.7; color:#9a9488; max-width:300px; margin:0;">Fine handmade silver. Designed and made in Galle, Sri Lanka.</p>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">Shop</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="#rings" class="cl-navlink">Rings</a><a href="#earrings" class="cl-navlink">Earrings</a><a href="#necklaces" class="cl-navlink">Necklaces</a><a href="#bracelets" class="cl-navlink">Bracelets</a><a href="#pendants" class="cl-navlink">Pendants</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">About</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="index.html#history" class="cl-navlink">Our Story</a><a href="#" class="cl-navlink">The Atelier</a><a href="#" class="cl-navlink">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:18px;">Customers</div>
+          <div style="display:flex; flex-direction:column; gap:11px; font-family:'Archivo',sans-serif; font-size:13px; color:#cfccc3;">
+            <a href="#" class="cl-navlink">My Account</a><a href="#" class="cl-navlink">Track Order</a><a href="https://www.instagram.com/calora.jewelry/" class="cl-navlink">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:30px; font-family:'Archivo',sans-serif; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#7d786e;">
+        <span>&copy; 2026 Calora &mdash; Galle, Sri Lanka</span>
+        <span>Made by hand. Made to keep.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { products: null };
+
+  componentDidMount() {
+    this._read();
+    this._sync = () => this._read();
+    window.addEventListener('storage', this._sync);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('storage', this._sync);
+    if (this._t) clearTimeout(this._t);
+  }
+
+  _read() {
+    var S = window.CaloraStore;
+    if (!S) { this._t = setTimeout(() => this._read(), 60); return; }
+    var self = this;
+    S.resolveCatalogue().then(function (list) {
+      self.setState({ products: list }, function () { self._jumpToHash(); });
+    });
+  }
+
+  _jumpToHash() {
+    var hash = (window.location.hash || '').replace('#', '');
+    if (!hash) return;
+    var self = this;
+    setTimeout(function () {
+      var el = document.getElementById(hash);
+      if (el) {
+        var top = el.getBoundingClientRect().top + window.pageYOffset - 96;
+        window.scrollTo({ top: top, behavior: 'auto' });
+      }
+    }, 40);
+  }
+
+  renderVals() {
+    var S = window.CaloraStore;
+    var cats = (S && S.CATEGORIES) || ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Pendants'];
+    var all = (this.state.products || []).filter(function (p) { return p.status !== 'draft'; });
+
+    var g = {};
+    cats.forEach(function (c) {
+      var items = all.filter(function (p) { return p.category === c; }).map(function (p) {
+        return Object.assign({}, p, {
+          priceLabel: '$' + p.price,
+          thumb: p.image
+            ? React.createElement('img', { src: p.image, alt: p.name, style: { width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'grayscale(1)' } })
+            : React.createElement('div', { className:'cl-ph', style: { position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:"'Archivo',sans-serif", fontWeight:600, fontSize:'11px', letterSpacing:'0.22em', textTransform:'uppercase', color:'#bdb9af' } }, p.category)
+        });
+      });
+      g[c.toLowerCase()] = {
+        items: items,
+        countLabel: items.length + (items.length === 1 ? ' piece' : ' pieces'),
+        hasItems: items.length > 0,
+        empty: items.length === 0
+      };
+    });
+
+    return {
+      g: g,
+      totalLabel: all.length + ' pieces \u00b7 ' + cats.length + ' categories'
+    };
+  }
+}
+</script>
+</body>
+</html>

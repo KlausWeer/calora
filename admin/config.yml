@@ -1,0 +1,50 @@
+# Decap CMS configuration for Calora
+# Edits here commit to data/products.json in your repo; Netlify rebuilds and the
+# storefront (Calora Products page) reads that file, so changes go live for everyone.
+
+backend:
+  name: git-gateway      # uses Netlify Identity + Git Gateway (no GitHub login per-editor)
+  branch: main           # change if your default branch is named differently
+
+# Where uploaded product photos are committed, and how the site references them.
+media_folder: "images/products"
+public_folder: "/images/products"
+
+# Friendlier labels in the editor UI
+publish_mode: simple
+
+collections:
+  - name: "catalogue"
+    label: "Catalogue"
+    description: "Every piece in the Calora shop."
+    files:
+      - name: "products"
+        label: "All products"
+        file: "data/products.json"
+        description: "Add, edit, reorder or remove pieces. Drag to reorder."
+        fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            label_singular: "Piece"
+            summary: "{{fields.name}} — {{fields.category}} (${{fields.price}})"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Rings", "Earrings", "Necklaces", "Bracelets", "Pendants"]
+              - label: "Material"
+                name: "material"
+                widget: "select"
+                options: ["925 Silver", "Vermeil", "Stone-set", "Moissanite"]
+              - { label: "Price (USD)", name: "price", widget: "number", value_type: "int", min: 0 }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false, choose_url: false }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options: ["active", "draft"]
+                default: "active"
+              - { label: "ID", name: "id", widget: "hidden", required: false }

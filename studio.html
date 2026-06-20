@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="calora-store.js"></script>
+<style>
+  body { margin:0; background:#E5E4DF; -webkit-font-smoothing:antialiased; }
+  ::selection { background:#121110; color:#E5E4DF; }
+  a { text-decoration:none; color:inherit; }
+  input, select, textarea, button { font-family:'Archivo',sans-serif; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:#121110 !important; }
+  input::placeholder, textarea::placeholder { color:#9c988d; }
+  @media (max-width:860px){
+    .adm-side { position:static !important; width:auto !important; flex-direction:row !important; align-items:center !important; gap:18px !important; padding:14px 18px !important; }
+    .adm-side-nav { flex-direction:row !important; margin:0 0 0 auto !important; gap:14px !important; }
+    .adm-side-foot { display:none !important; }
+    .adm-main { margin-left:0 !important; padding:24px 18px 70px !important; }
+    .adm-stats { grid-template-columns:repeat(2,1fr) !important; }
+    .adm-col-mat, .adm-col-cat { display:none !important; }
+    .adm-modal-grid { grid-template-columns:1fr !important; }
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#E5E4DF; color:#121110; font-family:'Archivo',sans-serif;">
+
+  <!-- SIDEBAR -->
+  <aside class="adm-side" style="position:fixed; top:0; left:0; bottom:0; width:248px; background:#121110; color:#E5E4DF; display:flex; flex-direction:column; padding:26px 22px; box-sizing:border-box; z-index:40;">
+    <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:19px; letter-spacing:0.32em; padding-left:0.32em;">CALORA</div>
+    <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.26em; text-transform:uppercase; color:#8f8a7f; margin-top:7px;">Atelier &middot; Catalogue Manager</div>
+
+    <nav class="adm-side-nav" style="display:flex; flex-direction:column; gap:3px; margin-top:34px;">
+      <div style="display:flex; align-items:center; gap:10px; padding:11px 12px; background:rgba(229,228,223,0.1); font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">
+        <span style="width:5px; height:5px; border-radius:50%; background:#c8a168;"></span>Catalogue
+      </div>
+      <div onClick="{{ newPiece }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:11px 12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#cfccc3;" style-hover="background:rgba(229,228,223,0.07); color:#E5E4DF;">
+        <span style="font-size:14px; line-height:1;">+</span>New piece
+      </div>
+      <div onClick="{{ exportJSON }}" style="cursor:pointer; display:flex; align-items:center; gap:10px; padding:11px 12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#cfccc3;" style-hover="background:rgba(229,228,223,0.07); color:#E5E4DF;">
+        <span style="font-size:13px; line-height:1;">&darr;</span>Export backup
+      </div>
+      <a href="shop.html" target="_blank" style="display:flex; align-items:center; gap:10px; padding:11px 12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#cfccc3;" style-hover="background:rgba(229,228,223,0.07); color:#E5E4DF;">
+        <span style="font-size:12px; line-height:1;">&nearr;</span>View storefront
+      </a>
+      <a href="admin/index.html" target="_blank" style="display:flex; align-items:center; gap:10px; padding:11px 12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#cfccc3;" style-hover="background:rgba(229,228,223,0.07); color:#E5E4DF;">
+        <span style="font-size:11px; line-height:1; color:#c8a168;">&#9632;</span>Live CMS (Decap)
+      </a>
+    </nav>
+
+    <div class="adm-side-foot" style="margin-top:auto; padding-top:22px; border-top:1px solid rgba(229,228,223,0.16);">
+      <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:8.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8f8a7f; margin-bottom:8px;">Saved on this browser</div>
+      <p style="font-family:'Archivo',sans-serif; font-weight:300; font-size:11px; line-height:1.6; color:#9a9488; margin:0 0 12px;">Changes publish to the storefront on this device. Export to back up or move your catalogue.</p>
+      <div onClick="{{ resetCatalogue }}" style="cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:#7d786e;" style-hover="color:#cfccc3;">Reset to sample &rarr;</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="adm-main" style="margin-left:248px; padding:34px 40px 80px;">
+
+    <!-- HEADER -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:34px;">
+      <div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:#8c887f; margin-bottom:12px;">Catalogue Manager</div>
+        <h1 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,5vw,60px); line-height:0.9; margin:0; letter-spacing:-0.04em; text-transform:uppercase;">Your pieces</h1>
+      </div>
+      <button onClick="{{ newPiece }}" style="cursor:pointer; border:none; background:#121110; color:#E5E4DF; font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; padding:15px 26px; display:flex; align-items:center; gap:9px;" style-hover="background:#2c2a26;">
+        <span style="font-size:15px; line-height:1;">+</span>Add new piece
+      </button>
+    </div>
+
+    <!-- STATS -->
+    <div class="adm-stats" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#cbc8bf; border:1px solid #cbc8bf; margin-bottom:30px;">
+      <div style="background:#EFEEE9; padding:22px 22px 20px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:38px; letter-spacing:-0.03em; line-height:1;">{{ total }}</div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-top:10px;">Total pieces</div>
+      </div>
+      <div style="background:#EFEEE9; padding:22px 22px 20px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:38px; letter-spacing:-0.03em; line-height:1;">{{ active }}</div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-top:10px;">Live on store</div>
+      </div>
+      <div style="background:#EFEEE9; padding:22px 22px 20px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:38px; letter-spacing:-0.03em; line-height:1;">{{ drafts }}</div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-top:10px;">Drafts</div>
+      </div>
+      <div style="background:#EFEEE9; padding:22px 22px 20px;">
+        <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:38px; letter-spacing:-0.03em; line-height:1;">{{ featured }}</div>
+        <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-top:10px;">Featured</div>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:18px;">
+      <div style="position:relative; flex:1; min-width:220px;">
+        <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:13px; color:#8c887f;">&#9906;</span>
+        <input type="text" value="{{ form.query }}" onChange="{{ setQuery }}" placeholder="Search pieces, category, material&hellip;" style="width:100%; box-sizing:border-box; background:#EFEEE9; border:1px solid #C9C6BD; padding:13px 14px 13px 36px; font-size:13px; letter-spacing:0.02em; color:#121110;">
+      </div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="6">
+          <div onClick="{{ chip.onClick }}" style="cursor:pointer; padding:11px 16px; border:1px solid #121110; background:{{ chip.bg }}; color:{{ chip.color }}; font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.16em; text-transform:uppercase;">{{ chip.name }}</div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#8c887f; margin-bottom:14px;">{{ countLabel }}</div>
+
+    <!-- TABLE -->
+    <div style="border:1px solid #cbc8bf; background:#cbc8bf; display:flex; flex-direction:column; gap:1px;">
+      <!-- head -->
+      <div style="display:grid; grid-template-columns:60px 1fr 120px 120px 84px 78px 104px; gap:0; background:#E5E4DF; padding:13px 20px; font-family:'Archivo',sans-serif; font-weight:700; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; align-items:center;">
+        <span></span><span>Piece</span><span class="adm-col-cat">Category</span><span class="adm-col-mat">Material</span><span>Price</span><span>Status</span><span style="text-align:right;">Actions</span>
+      </div>
+
+      <sc-for list="{{ rows }}" as="item" hint-placeholder-count="5">
+        <div style="display:grid; grid-template-columns:60px 1fr 120px 120px 84px 78px 104px; gap:0; background:#F4F3EF; padding:13px 20px; align-items:center;" style-hover="background:#EFEEE9;">
+          <!-- thumb -->
+          <div style="width:42px; height:50px; background:#DBDAD4; overflow:hidden; display:flex; align-items:center; justify-content:center;">{{ item.thumb }}</div>
+          <!-- name -->
+          <div style="padding-right:14px;">
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase;">{{ item.name }}</div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:300; font-size:11.5px; color:#6f6a60; margin-top:3px; line-height:1.4; max-width:340px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ item.description }}</div>
+          </div>
+          <div class="adm-col-cat" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#3a3833;">{{ item.category }}</div>
+          <div class="adm-col-mat" style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8c887f;">{{ item.material }}</div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:13px;">{{ item.priceLabel }}</div>
+          <div><span style="display:inline-block; font-family:'Archivo',sans-serif; font-weight:600; font-size:8.5px; letter-spacing:0.16em; text-transform:uppercase; padding:5px 9px; background:{{ item.statusBg }}; color:{{ item.statusColor }};">{{ item.statusLabel }}</span></div>
+          <div style="display:flex; gap:8px; justify-content:flex-end; align-items:center;">
+            <div onClick="{{ item.onEdit }}" style="cursor:pointer; font-family:'Archivo',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; border-bottom:1px solid #121110; padding-bottom:1px;" style-hover="opacity:0.5;">Edit</div>
+            <div onClick="{{ item.onDelete }}" style="cursor:pointer; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#8c887f;" style-hover="color:#a23b2d;">&times;</div>
+          </div>
+        </div>
+      </sc-for>
+
+      <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#F4F3EF; padding:60px 20px; text-align:center;">
+          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:16px; letter-spacing:0.04em; text-transform:uppercase; color:#3a3833;">No pieces here yet</div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:300; font-size:13px; color:#8c887f; margin-top:8px;">Adjust your search, or add a new piece to the catalogue.</div>
+        </div>
+      </sc-if>
+    </div>
+
+  </main>
+
+  <!-- EDIT / ADD MODAL -->
+  <sc-if value="{{ isEditing }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:80; background:rgba(18,17,16,0.46); display:flex; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);">
+      <div style="width:780px; max-width:100%; background:#E5E4DF; border:1px solid #121110; box-shadow:0 40px 90px -30px rgba(8,7,6,0.6);">
+
+        <!-- modal head -->
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 28px; border-bottom:1px solid #121110;">
+          <div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9px; letter-spacing:0.24em; text-transform:uppercase; color:#8c887f; margin-bottom:6px;">Catalogue Entry</div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:24px; letter-spacing:-0.02em; text-transform:uppercase;">{{ formTitle }}</div>
+          </div>
+          <div onClick="{{ cancel }}" style="cursor:pointer; width:34px; height:34px; border:1px solid #121110; display:flex; align-items:center; justify-content:center; font-size:18px;" style-hover="background:#121110; color:#E5E4DF;">&times;</div>
+        </div>
+
+        <div class="adm-modal-grid" style="display:grid; grid-template-columns:280px 1fr; gap:0;">
+
+          <!-- IMAGE COLUMN -->
+          <div style="padding:26px 24px; border-right:1px solid #cbc8bf;">
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:12px;">Product Image</div>
+            <label onDrop="{{ onDrop }}" onDragOver="{{ onDragOver }}" style="display:block; cursor:pointer; aspect-ratio:4/5; background:#DBDAD4; border:1px dashed #ABA79C; overflow:hidden; position:relative;">
+              <sc-if value="{{ formHasImage }}" hint-placeholder-val="{{ false }}">{{ formThumb }}</sc-if>
+              <sc-if value="{{ formNoImage }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; gap:8px;">
+                  <span style="font-size:24px; line-height:1; color:#9c988d;">&uarr;</span>
+                  <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.04em; color:#6f6a60;">Drop an image here</span>
+                  <span style="font-family:'Archivo',sans-serif; font-weight:300; font-size:10.5px; color:#9c988d;">or click to browse &middot; JPG / PNG</span>
+                </div>
+              </sc-if>
+              <input type="file" accept="image/*" onChange="{{ onFile }}" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
+            </label>
+            <sc-if value="{{ formHasImage }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ clearImage }}" style="cursor:pointer; text-align:center; margin-top:12px; font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#8c887f;" style-hover="color:#a23b2d;">Remove image</div>
+            </sc-if>
+          </div>
+
+          <!-- FIELDS COLUMN -->
+          <div style="padding:26px 28px; display:flex; flex-direction:column; gap:20px;">
+            <div>
+              <label style="display:block; font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:8px;">Piece name</label>
+              <input type="text" value="{{ form.name }}" onChange="{{ fName }}" placeholder="e.g. Selva Hoops" style="width:100%; box-sizing:border-box; background:#EFEEE9; border:1px solid #C9C6BD; padding:13px 14px; font-size:14px; color:#121110;">
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div>
+                <label style="display:block; font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:8px;">Category</label>
+                <select value="{{ form.category }}" onChange="{{ fCategory }}" style="width:100%; box-sizing:border-box; background:#EFEEE9; border:1px solid #C9C6BD; padding:13px 12px; font-size:13px; color:#121110; -webkit-appearance:none; appearance:none;">
+                  <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5"><option value="{{ c }}">{{ c }}</option></sc-for>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:8px;">Material</label>
+                <select value="{{ form.material }}" onChange="{{ fMaterial }}" style="width:100%; box-sizing:border-box; background:#EFEEE9; border:1px solid #C9C6BD; padding:13px 12px; font-size:13px; color:#121110; -webkit-appearance:none; appearance:none;">
+                  <sc-for list="{{ mats }}" as="m" hint-placeholder-count="4"><option value="{{ m }}">{{ m }}</option></sc-for>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:140px 1fr; gap:16px; align-items:end;">
+              <div>
+                <label style="display:block; font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:8px;">Price (USD)</label>
+                <div style="display:flex; align-items:center; background:#EFEEE9; border:1px solid #C9C6BD;">
+                  <span style="padding:0 0 0 14px; font-size:14px; color:#8c887f;">$</span>
+                  <input type="number" value="{{ form.price }}" onChange="{{ fPrice }}" placeholder="0" min="0" style="width:100%; box-sizing:border-box; background:transparent; border:none; padding:13px 14px 13px 6px; font-size:14px; color:#121110;">
+                </div>
+              </div>
+              <div style="display:flex; gap:22px; padding-bottom:13px;">
+                <label style="display:flex; align-items:center; gap:9px; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">
+                  <input type="checkbox" checked="{{ form.featured }}" onChange="{{ fFeatured }}" style="width:17px; height:17px; accent-color:#121110;">Featured
+                </label>
+                <label style="display:flex; align-items:center; gap:9px; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">
+                  <input type="checkbox" checked="{{ isDraftForm }}" onChange="{{ fStatus }}" style="width:17px; height:17px; accent-color:#121110;">Save as draft
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label style="display:block; font-family:'Archivo',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:#8c887f; margin-bottom:8px;">Description</label>
+              <textarea onChange="{{ fDesc }}" value="{{ form.description }}" placeholder="One quiet line about the piece&hellip;" rows="3" style="width:100%; box-sizing:border-box; background:#EFEEE9; border:1px solid #C9C6BD; padding:13px 14px; font-size:13.5px; line-height:1.6; color:#121110; resize:vertical;">{{ form.description }}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal foot -->
+        <div style="display:flex; justify-content:flex-end; gap:12px; padding:20px 28px; border-top:1px solid #121110;">
+          <button onClick="{{ cancel }}" style="cursor:pointer; background:transparent; border:1px solid #121110; color:#121110; font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; padding:14px 24px;" style-hover="background:#dad8d1;">Cancel</button>
+          <button onClick="{{ save }}" style="cursor:pointer; background:#121110; border:1px solid #121110; color:#E5E4DF; font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; padding:14px 30px;" style-hover="background:#2c2a26;">Save piece</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- TOAST -->
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; left:50%; bottom:30px; transform:translateX(-50%); z-index:90; background:#121110; color:#E5E4DF; font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; padding:14px 24px; box-shadow:0 16px 40px -14px rgba(8,7,6,0.5);">{{ toast }}</div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  state = {
+    products: [],
+    query: '',
+    filter: 'All',
+    view: 'list',
+    form: { id:null, name:'', category:'Rings', price:'', material:'925 Silver', description:'', image:'', featured:false, status:'active' },
+    toast: ''
+  };
+
+  componentDidMount() {
+    this._read();
+    this._sync = () => this._read();
+    window.addEventListener('storage', this._sync);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('storage', this._sync);
+    if (this._toastT) clearTimeout(this._toastT);
+    if (this._t) clearTimeout(this._t);
+  }
+
+  _read() {
+    var S = window.CaloraStore;
+    if (!S) { this._t = setTimeout(() => this._read(), 60); return; }
+    this.setState({ products: S.load() });
+  }
+
+  emptyForm() {
+    var S = window.CaloraStore;
+    var cats = (S && S.CATEGORIES) || ['Rings'];
+    var mats = (S && S.MATERIALS) || ['925 Silver'];
+    return { id:null, name:'', category:cats[0], price:'', material:mats[0], description:'', image:'', featured:false, status:'active' };
+  }
+
+  newPiece() { this.setState({ view:'edit', form:this.emptyForm() }); }
+
+  editProduct(id) {
+    var p = (this.state.products || []).find(function (x) { return x.id === id; });
+    if (!p) return;
+    this.setState({ view:'edit', form: Object.assign({}, p, { price: String(p.price) }) });
+  }
+
+  removeProduct(id) {
+    var p = (this.state.products || []).find(function (x) { return x.id === id; });
+    var name = p ? p.name : 'this piece';
+    if (!window.confirm('Remove \u201C' + name + '\u201D from the catalogue?')) return;
+    var list = (this.state.products || []).filter(function (x) { return x.id !== id; });
+    this.persist(list);
+    this.flash('Piece removed');
+  }
+
+  save() {
+    var f = this.state.form;
+    if (!f.name || !f.name.trim()) { this.flash('Add a product name'); return; }
+    var price = parseFloat(f.price);
+    var rec = Object.assign({}, f, { name: f.name.trim(), price: isNaN(price) ? 0 : price });
+    var list;
+    if (f.id) {
+      list = (this.state.products || []).map(function (p) { return p.id === f.id ? rec : p; });
+    } else {
+      rec.id = window.CaloraStore.uid();
+      list = [rec].concat(this.state.products || []);
+    }
+    this.persist(list);
+    this.setState({ view:'list', form:this.emptyForm() });
+    this.flash(f.id ? 'Piece updated' : 'Piece added');
+  }
+
+  cancel() { this.setState({ view:'list', form:this.emptyForm() }); }
+
+  persist(list) {
+    if (window.CaloraStore) window.CaloraStore.save(list);
+    this.setState({ products: list });
+  }
+
+  ingest(file) {
+    var self = this;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var src = e.target.result;
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var max = 1000;
+          var w = img.width, h = img.height;
+          var s = Math.min(1, max / Math.max(w, h));
+          w = Math.round(w * s); h = Math.round(h * s);
+          var c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, 0, 0, w, h);
+          var data = c.toDataURL('image/jpeg', 0.82);
+          self.setState(function (st) { return { form: Object.assign({}, st.form, { image: data }) }; });
+        } catch (err) {
+          self.setState(function (st) { return { form: Object.assign({}, st.form, { image: src }) }; });
+        }
+      };
+      img.onerror = function () {
+        self.setState(function (st) { return { form: Object.assign({}, st.form, { image: src }) }; });
+      };
+      img.src = src;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  exportJSON() {
+    var data = JSON.stringify({ products: this.state.products }, null, 2);
+    var blob = new Blob([data], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'products.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    this.flash('Catalogue exported');
+  }
+
+  resetCatalogue() {
+    if (!window.confirm('Reset to the sample catalogue? Your changes on this browser will be cleared.')) return;
+    var list = window.CaloraStore ? window.CaloraStore.reset() : [];
+    this.setState({ products: list, filter:'All', query:'' });
+    this.flash('Reset to sample');
+  }
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    if (this._toastT) clearTimeout(this._toastT);
+    var self = this;
+    this._toastT = setTimeout(function () { self.setState({ toast: '' }); }, 2200);
+  }
+
+  renderVals() {
+    var self = this;
+    var S = window.CaloraStore;
+    var cats = (S && S.CATEGORIES) || ['Rings','Earrings','Necklaces','Bracelets','Pendants'];
+    var mats = (S && S.MATERIALS) || ['925 Silver','Vermeil','Stone-set','Moissanite'];
+    var all = this.state.products || [];
+    var q = (this.state.query || '').trim().toLowerCase();
+    var filter = this.state.filter || 'All';
+
+    var rows = all.filter(function (p) {
+      var okF = filter === 'All' || p.category === filter;
+      var okQ = !q || ((p.name + ' ' + p.category + ' ' + p.material).toLowerCase().indexOf(q) !== -1);
+      return okF && okQ;
+    }).map(function (p) {
+      return Object.assign({}, p, {
+        priceLabel: '$' + p.price,
+        hasImage: !!p.image,
+        noImage: !p.image,
+        initial: (p.name || '?').slice(0, 1).toUpperCase(),
+        thumb: p.image
+          ? React.createElement('img', { src: p.image, alt: p.name, style: { width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'grayscale(1)' } })
+          : React.createElement('span', { style: { fontFamily:"'Archivo',sans-serif", fontWeight:700, fontSize:'15px', color:'#a9a499' } }, (p.name || '?').slice(0, 1).toUpperCase()),
+        statusLabel: p.status === 'draft' ? 'Draft' : 'Live',
+        statusBg: p.status === 'draft' ? '#cdcabf' : '#121110',
+        statusColor: p.status === 'draft' ? '#5b574d' : '#E5E4DF',
+        onEdit: function () { self.editProduct(p.id); },
+        onDelete: function () { self.removeProduct(p.id); }
+      });
+    });
+
+    var chips = ['All'].concat(cats).map(function (c) {
+      var on = filter === c;
+      return {
+        name: c,
+        bg: on ? '#121110' : 'transparent',
+        color: on ? '#E5E4DF' : '#121110',
+        onClick: function () { self.setState({ filter: c }); }
+      };
+    });
+
+    var f = this.state.form;
+    var setF = function (patch) { self.setState(function (s) { return { form: Object.assign({}, s.form, patch) }; }); };
+
+    return {
+      rows: rows,
+      cats: cats,
+      mats: mats,
+      chips: chips,
+      hasRows: rows.length > 0,
+      noRows: rows.length === 0,
+      countLabel: rows.length + (rows.length === 1 ? ' piece' : ' pieces'),
+      total: all.length,
+      active: all.filter(function (p) { return p.status !== 'draft'; }).length,
+      drafts: all.filter(function (p) { return p.status === 'draft'; }).length,
+      featured: all.filter(function (p) { return p.featured; }).length,
+      isEditing: this.state.view === 'edit',
+      formTitle: f.id ? 'Edit piece' : 'New piece',
+      form: Object.assign({}, f, { query: this.state.query }),
+      formHasImage: !!f.image,
+      formNoImage: !f.image,
+      formThumb: f.image ? React.createElement('img', { src: f.image, alt: 'preview', style: { width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'grayscale(1)' } }) : null,
+      isDraftForm: f.status === 'draft',
+      toast: this.state.toast,
+      hasToast: !!this.state.toast,
+      newPiece: function () { self.newPiece(); },
+      save: function () { self.save(); },
+      cancel: function () { self.cancel(); },
+      exportJSON: function () { self.exportJSON(); },
+      resetCatalogue: function () { self.resetCatalogue(); },
+      setQuery: function (e) { self.setState({ query: e.target.value }); },
+      onFile: function (e) { var file = e.target.files && e.target.files[0]; if (file) self.ingest(file); },
+      onDrop: function (e) { e.preventDefault(); var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (file) self.ingest(file); },
+      onDragOver: function (e) { e.preventDefault(); },
+      clearImage: function () { setF({ image: '' }); },
+      fName: function (e) { setF({ name: e.target.value }); },
+      fPrice: function (e) { setF({ price: e.target.value }); },
+      fCategory: function (e) { setF({ category: e.target.value }); },
+      fMaterial: function (e) { setF({ material: e.target.value }); },
+      fDesc: function (e) { setF({ description: e.target.value }); },
+      fFeatured: function (e) { setF({ featured: e.target.checked }); },
+      fStatus: function (e) { setF({ status: e.target.checked ? 'draft' : 'active' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
